@@ -53,7 +53,8 @@ public class ChatListAdapter extends BaseAdapter {
             if(convertView==null)
             {
                     v= LayoutInflater.from(context).inflate(R.layout.chat_user1_item, null, false);
-                    holder1 = new ViewHolder1();
+                    holder1 = new ViewHolder1();
+
 
                 holder1.messageTextView = (TextView) v.findViewById(R.id.message_text);
                 holder1.timeTextView=(TextView)v.findViewById(R.id.time_text);

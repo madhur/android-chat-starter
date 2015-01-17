@@ -57,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
         chatEditText1 = (EditText) findViewById(R.id.chat_edit_text1);
         chatEditText2 = (EditText) findViewById(R.id.chat_edit_text2);
 
-        ChatListAdapter listAdapter = new ChatListAdapter(chatMessages);
+        ChatListAdapter listAdapter = new ChatListAdapter(chatMessages, this);
 
         chatListView.setAdapter(listAdapter);
 
