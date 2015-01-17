@@ -29,7 +29,7 @@
                 android:textSize="14dp" />
 
             <TextView
-                android:id="@+id/chat_company_reply"
+                android:id="@+id/message_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -40,7 +40,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/company_reply_timing"
+            android:id="@+id/time_text"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_alignBottom="@id/chat_company_reply_text"

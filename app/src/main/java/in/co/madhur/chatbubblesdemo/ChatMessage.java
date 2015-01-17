@@ -9,6 +9,16 @@ public class ChatMessage {
     private UserType userType;
     private Status messageStatus;
 
+    public long getMessageTime() {
+        return messageTime;
+    }
+
+    public void setMessageTime(long messageTime) {
+        this.messageTime = messageTime;
+    }
+
+    private long messageTime;
+
     public void setMessageText(String messageText) {
         this.messageText = messageText;
     }
