@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingRight="17dp"
+    android:paddingLeft="17dp"
+
+    android:paddingTop="5dp">
+
+    <in.co.madhur.chatbubblesdemo.ChatLayout
+        android:layout_width="wrap_content" android:id="@+id/bubble" android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
+        android:layout_height="wrap_content" android:background="@drawable/chat_user_reply_background">
+
+        <ImageView
+            android:id="@+id/user_reply_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/chat_user_reply"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+
+
+            android:src="@drawable/ic_single_tick"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/user_reply_timing"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_alignBottom="@id/chat_user_reply"
+            android:textColor="@color/gray"
+            android:paddingBottom="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
+            android:layout_toLeftOf="@id/user_reply_status"
+            android:layout_toStartOf="@id/user_reply_status"
+            android:text="17:10" />
+
+        <TextView
+            android:id="@+id/chat_user_reply"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_toLeftOf="@id/user_reply_timing"
+
+            android:autoLink="web"
+            android:text="Rahul Agrawal is a good boy but he does not know what he wants." />
+
+
+
+    </in.co.madhur.chatbubblesdemo.ChatLayout>
+</RelativeLayout>
