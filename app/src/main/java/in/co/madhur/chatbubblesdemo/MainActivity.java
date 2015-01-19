@@ -1,19 +1,17 @@
 package in.co.madhur.chatbubblesdemo;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -23,6 +21,7 @@ public class MainActivity extends ActionBarActivity {
     private EditText chatEditText2;
     private ArrayList<ChatMessage> chatMessages;
     private ImageView enterChatView1, enterChatView2;
+    private ChatListAdapter listAdapter;
 
     private EditText.OnKeyListener keyListener = new View.OnKeyListener() {
         @Override
@@ -133,7 +132,7 @@ public class MainActivity extends ActionBarActivity {
         enterChatView1 = (ImageView) findViewById(R.id.enter_chat1);
         enterChatView2 = (ImageView) findViewById(R.id.enter_chat2);
 
-        ChatListAdapter listAdapter = new ChatListAdapter(chatMessages, this);
+         listAdapter = new ChatListAdapter(chatMessages, this);
 
         chatListView.setAdapter(listAdapter);
 
@@ -154,8 +153,11 @@ public class MainActivity extends ActionBarActivity {
         message.setMessageStatus(Status.SENT);
         message.setMessageText(messageText);
         message.setUserType(userType);
-
+        message.setMessageTime(new Date().getTime());
         chatMessages.add(message);
+
+        if(listAdapter!=null)
+            listAdapter.notifyDataSetChanged();
 
     }
 }

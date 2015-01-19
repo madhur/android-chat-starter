@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +17,7 @@ public class ChatListAdapter extends BaseAdapter {
 
     private ArrayList<ChatMessage> chatMessages;
     private Context context;
+    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("HH:mm");
 
     public ChatListAdapter(ArrayList<ChatMessage> chatMessages, Context context)
     {
@@ -71,6 +73,7 @@ public class ChatListAdapter extends BaseAdapter {
             }
 
             holder1.messageTextView.setText(message.getMessageText());
+            holder1.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getMessageTime()));
 
 
 
@@ -103,7 +106,7 @@ public class ChatListAdapter extends BaseAdapter {
             }
 
             holder2.messageTextView.setText(message.getMessageText());
-
+            holder2.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getMessageTime()));
 
         }
 
