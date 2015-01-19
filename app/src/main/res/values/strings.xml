@@ -4,6 +4,6 @@
     <string name="app_name">Chat Bubbles Demo</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="type_your_message">Enter message</string>
+    <string name="type_your_message">Enter msg</string>
 
 </resources>

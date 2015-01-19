@@ -25,8 +25,10 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="8dp"
                 android:paddingTop="5dp"
+                android:textStyle="bold"
+                android:textColor="@color/orange"
                 android:text="User1"
-                android:textSize="14dp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/message_text"
@@ -35,6 +37,7 @@
                 android:layout_centerVertical="true"
                 style="@style/chat_text_message_style"
                 android:paddingLeft="20dp"
+
                 android:autoLink="web"
                 android:maxWidth="280dp"
                 android:text="Rahul Agrawal is a good boy but he does not know what he wants." />
