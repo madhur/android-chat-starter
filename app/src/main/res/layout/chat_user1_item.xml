@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="5dp"
-    android:paddingLeft="17dp"
+
     android:paddingTop="5dp">
 
     <RelativeLayout
@@ -22,7 +22,7 @@
                 android:id="@+id/chat_company_reply_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="8dp"
+                android:paddingLeft="20dp"
                 android:paddingRight="8dp"
                 android:paddingTop="5dp"
                 android:text="User1"
@@ -33,6 +33,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                style="@style/chat_text_message_style"
+                android:paddingLeft="20dp"
                 android:autoLink="web"
                 android:maxWidth="280dp"
                 android:text="Rahul Agrawal is a good boy but he does not know what he wants." />
@@ -45,6 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_alignBottom="@id/chat_company_reply_text"
             android:layout_marginLeft="10dp"
+            style="@style/chat_timings"
             android:paddingRight="10dp"
             android:textColor="@color/gray"
             android:paddingBottom="5dp"

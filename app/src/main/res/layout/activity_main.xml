@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" android:background="@drawable/background"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity">
 
 
@@ -10,7 +10,7 @@
         android:layout_width="match_parent" android:scrollbarStyle="outsideOverlay"
         android:layout_height="match_parent"></ListView>
 
-    <LinearLayout
+    <LinearLayout android:background="@android:color/white"
         android:layout_width="match_parent" android:layout_alignParentBottom="true"
         android:layout_height="wrap_content">
     <EditText
@@ -30,6 +30,16 @@
         android:textSize="18sp"
         android:paddingLeft="4dp"/>
 
+        <ImageView
+            android:id="@+id/enter_chat1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="13dp"
+            android:paddingRight="17dp"
+            android:src="@drawable/ic_chat_send" />
+
     <EditText
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -45,6 +55,16 @@
 
         android:textSize="18sp"
         android:paddingLeft="4dp"/>
+
+        <ImageView
+            android:id="@+id/enter_chat2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="13dp"
+            android:paddingRight="17dp"
+            android:src="@drawable/ic_chat_send" />
 
     </LinearLayout>
 

@@ -2,11 +2,14 @@ package in.co.madhur.chatbubblesdemo;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,6 +22,7 @@ public class MainActivity extends ActionBarActivity {
     private EditText chatEditText1;
     private EditText chatEditText2;
     private ArrayList<ChatMessage> chatMessages;
+    private ImageView enterChatView1, enterChatView2;
 
     private EditText.OnKeyListener keyListener = new View.OnKeyListener() {
         @Override
@@ -48,6 +52,73 @@ public class MainActivity extends ActionBarActivity {
         }
     };
 
+    private ImageView.OnClickListener clickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            if(v==enterChatView1)
+            {
+                sendMessage(chatEditText1.getText().toString(), UserType.OTHER);
+            }
+            else if(v==enterChatView2)
+                sendMessage(chatEditText2.getText().toString(), UserType.SELF);
+
+            chatEditText1.setText("");
+            chatEditText2.setText("");
+
+        }
+    };
+
+    private final TextWatcher watcher1 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            if (chatEditText1.getText().toString().equals("")) {
+
+            } else {
+                enterChatView1.setImageResource(R.drawable.ic_chat_send);
+
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            if(editable.length()==0){
+                enterChatView1.setImageResource(R.drawable.ic_chat_send);
+            }else{
+                enterChatView1.setImageResource(R.drawable.ic_chat_send_active);
+            }
+        }
+    };
+
+    private final TextWatcher watcher2 = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            if (chatEditText2.getText().toString().equals("")) {
+
+            } else {
+                enterChatView2.setImageResource(R.drawable.ic_chat_send);
+
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            if(editable.length()==0){
+                enterChatView2.setImageResource(R.drawable.ic_chat_send);
+            }else{
+                enterChatView2.setImageResource(R.drawable.ic_chat_send_active);
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +130,8 @@ public class MainActivity extends ActionBarActivity {
 
         chatEditText1 = (EditText) findViewById(R.id.chat_edit_text1);
         chatEditText2 = (EditText) findViewById(R.id.chat_edit_text2);
+        enterChatView1 = (ImageView) findViewById(R.id.enter_chat1);
+        enterChatView2 = (ImageView) findViewById(R.id.enter_chat2);
 
         ChatListAdapter listAdapter = new ChatListAdapter(chatMessages, this);
 
@@ -66,6 +139,12 @@ public class MainActivity extends ActionBarActivity {
 
         chatEditText1.setOnKeyListener(keyListener);
         chatEditText2.setOnKeyListener(keyListener);
+
+        enterChatView1.setOnClickListener(clickListener);
+        enterChatView2.setOnClickListener(clickListener);
+
+        chatEditText1.addTextChangedListener(watcher1);
+        chatEditText2.addTextChangedListener(watcher2);
     }
 
     private void sendMessage(String messageText, UserType userType)
