@@ -12,6 +12,9 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -149,7 +152,7 @@ public class MainActivity extends ActionBarActivity {
     private void sendMessage(String messageText, UserType userType)
     {
 
-        ChatMessage message = new ChatMessage();
+        final ChatMessage message = new ChatMessage();
         message.setMessageStatus(Status.SENT);
         message.setMessageText(messageText);
         message.setUserType(userType);
@@ -158,6 +161,25 @@ public class MainActivity extends ActionBarActivity {
 
         if(listAdapter!=null)
             listAdapter.notifyDataSetChanged();
+
+        // Mark message as delivered after one second
+
+        final ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
+
+        exec.schedule(new Runnable(){
+            @Override
+            public void run(){
+               message.setMessageStatus(Status.DELIVERED);
+
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        listAdapter.notifyDataSetChanged();
+                    }
+                });
+
+
+            }
+        }, 1, TimeUnit.SECONDS);
 
     }
 }

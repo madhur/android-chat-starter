@@ -1,10 +1,12 @@
 package in.co.madhur.chatbubblesdemo;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -91,7 +93,7 @@ public class ChatListAdapter extends BaseAdapter {
 
                 holder2.messageTextView = (TextView) v.findViewById(R.id.message_text);
                 holder2.timeTextView=(TextView)v.findViewById(R.id.time_text);
-
+                holder2.messageStatus=(ImageView)v.findViewById(R.id.user_reply_status);
                 v.setTag(holder2);
 
 
@@ -108,11 +110,24 @@ public class ChatListAdapter extends BaseAdapter {
             holder2.messageTextView.setText(message.getMessageText());
             holder2.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getMessageTime()));
 
+            if(message.getMessageStatus()==Status.DELIVERED)
+            {
+                holder2.messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_double_tick));
+            }
+            else if(message.getMessageStatus()==Status.SENT)
+            {
+                holder2.messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_single_tick));
+
+            }
+
+
         }
 
 
         return v;
     }
+
+
 
     private  class ViewHolder1
     {
@@ -124,7 +139,7 @@ public class ChatListAdapter extends BaseAdapter {
 
     private  class ViewHolder2
     {
-        public  TextView userNameTextView;
+        public ImageView messageStatus;
         public  TextView messageTextView;
         public  TextView timeTextView;
 
