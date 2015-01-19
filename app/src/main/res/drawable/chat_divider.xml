@@ -3,8 +3,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="15dp" />
-            <solid android:color="@color/chat_user_reply_background_color" />
+            <size android:height="2dp" />
+            <solid android:color="@color/transparent" />
         </shape>
     </item>
 </layer-list>

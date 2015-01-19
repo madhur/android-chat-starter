@@ -8,7 +8,7 @@
     android:paddingTop="5dp">
 
     <RelativeLayout
-        android:layout_width="wrap_content"  android:background="@drawable/chat_company_reply_background"
+        android:layout_width="wrap_content"  android:background="@drawable/balloon_incoming_normal"
         android:layout_height="wrap_content">
 
         <LinearLayout

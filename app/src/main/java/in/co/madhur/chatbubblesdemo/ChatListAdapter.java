@@ -83,15 +83,26 @@ public class ChatListAdapter extends BaseAdapter {
             {
                 v= LayoutInflater.from(context).inflate(R.layout.chat_user2_item, null, false);
 
+                holder2 = new ViewHolder2();
+
+
+                holder2.messageTextView = (TextView) v.findViewById(R.id.message_text);
+                holder2.timeTextView=(TextView)v.findViewById(R.id.time_text);
+
+                v.setTag(holder2);
+
+
 
 
             }
             else
             {
                 v=convertView;
+                holder2 = (ViewHolder2) v.getTag();
 
             }
 
+            holder2.messageTextView.setText(message.getMessageText());
 
 
         }
@@ -112,6 +123,7 @@ public class ChatListAdapter extends BaseAdapter {
     {
         public  TextView userNameTextView;
         public  TextView messageTextView;
+        public  TextView timeTextView;
 
     }
 }

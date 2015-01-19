@@ -11,7 +11,7 @@
 
     <in.co.madhur.chatbubblesdemo.ChatLayout
         android:layout_width="wrap_content" android:id="@+id/bubble" android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
-        android:layout_height="wrap_content" android:background="@drawable/chat_user_reply_background">
+        android:layout_height="wrap_content" android:background="@drawable/balloon_outgoing_normal">
 
         <ImageView
             android:id="@+id/user_reply_status"
@@ -42,7 +42,7 @@
             android:text="17:10" />
 
         <TextView
-            android:id="@+id/chat_user_reply"
+            android:id="@+id/message_text"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_toLeftOf="@id/user_reply_timing"

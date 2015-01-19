@@ -38,6 +38,9 @@ public class MainActivity extends ActionBarActivity {
                 else
                     sendMessage(editText.getText().toString(), UserType.SELF);
 
+                chatEditText1.setText("");
+                chatEditText2.setText("");
+
                 return true;
             }
             return false;
