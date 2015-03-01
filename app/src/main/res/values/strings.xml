@@ -3,5 +3,6 @@
 
     <string name="app_name">Chat Bubbles Demo</string>
     <string name="type_your_message">Enter msg</string>
+    <string name="NoRecent">No recent</string>
 
 </resources>
