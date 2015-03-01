@@ -28,9 +28,8 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
 
     private ListView chatListView;
     private EditText chatEditText1;
-    private EditText chatEditText2;
     private ArrayList<ChatMessage> chatMessages;
-    private ImageView enterChatView1, enterChatView2;
+    private ImageView enterChatView1, emojiButton;
     private ChatListAdapter listAdapter;
     private EmojiView emojiView;
     private SizeNotifierRelativeLayout sizeNotifierRelativeLayout;
@@ -38,7 +37,7 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
     private int keyboardHeight;
     private boolean keyboardVisible;
     private WindowManager.LayoutParams windowLayoutParams;
-    private int height;
+
 
     private EditText.OnKeyListener keyListener = new View.OnKeyListener() {
         @Override
@@ -59,7 +58,6 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
                     sendMessage(editText.getText().toString(), UserType.SELF);
 
                 chatEditText1.setText("");
-                chatEditText2.setText("");
 
                 return true;
             }
@@ -76,11 +74,10 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
             {
                 sendMessage(chatEditText1.getText().toString(), UserType.OTHER);
             }
-            else if(v==enterChatView2)
-                sendMessage(chatEditText2.getText().toString(), UserType.SELF);
+//            else if(v==enterChatView2)
+//                sendMessage(chatEditText2.getText().toString(), UserType.SELF);
 
             chatEditText1.setText("");
-            chatEditText2.setText("");
 
         }
     };
@@ -110,31 +107,6 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         }
     };
 
-    private final TextWatcher watcher2 = new TextWatcher() {
-        @Override
-        public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
-            if (chatEditText2.getText().toString().equals("")) {
-
-            } else {
-                enterChatView2.setImageResource(R.drawable.ic_chat_send);
-
-            }
-        }
-
-        @Override
-        public void afterTextChanged(Editable editable) {
-            if(editable.length()==0){
-                enterChatView2.setImageResource(R.drawable.ic_chat_send);
-            }else{
-                enterChatView2.setImageResource(R.drawable.ic_chat_send_active);
-            }
-        }
-    };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,25 +120,46 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         chatListView = (ListView) findViewById(R.id.chat_list_view);
 
         chatEditText1 = (EditText) findViewById(R.id.chat_edit_text1);
-        chatEditText2 = (EditText) findViewById(R.id.chat_edit_text2);
+       // chatEditText2 = (EditText) findViewById(R.id.chat_edit_text2);
         enterChatView1 = (ImageView) findViewById(R.id.enter_chat1);
-        enterChatView2 = (ImageView) findViewById(R.id.enter_chat2);
+      //  enterChatView2 = (ImageView) findViewById(R.id.enter_chat2);
+
+        // Hide the emoji on click of edit text
+        chatEditText1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (showingEmoji)
+                    hideEmojiPopup();
+            }
+        });
+
+
+        emojiButton = (ImageView)findViewById(R.id.emojiButton);
+
+        emojiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showEmojiPopup(!showingEmoji);
+            }
+        });
 
          listAdapter = new ChatListAdapter(chatMessages, this);
 
         chatListView.setAdapter(listAdapter);
 
         chatEditText1.setOnKeyListener(keyListener);
-        chatEditText2.setOnKeyListener(keyListener);
 
         enterChatView1.setOnClickListener(clickListener);
-        enterChatView2.setOnClickListener(clickListener);
 
         chatEditText1.addTextChangedListener(watcher1);
-        chatEditText2.addTextChangedListener(watcher2);
+
+        sizeNotifierRelativeLayout = (SizeNotifierRelativeLayout) findViewById(R.id.chat_layout);
+        sizeNotifierRelativeLayout.delegate = this;
+
+        NotificationCenter.getInstance().addObserver(this, NotificationCenter.emojiDidLoaded);
     }
 
-    private void sendMessage(String messageText, UserType userType)
+    private void sendMessage(final String messageText, final UserType userType)
     {
 
         final ChatMessage message = new ChatMessage();
@@ -187,6 +180,13 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
             @Override
             public void run(){
                message.setMessageStatus(Status.DELIVERED);
+
+                final ChatMessage message = new ChatMessage();
+                message.setMessageStatus(Status.SENT);
+                message.setMessageText(messageText);
+                message.setUserType(UserType.SELF);
+                message.setMessageTime(new Date().getTime());
+                chatMessages.add(message);
 
                 MainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
@@ -366,7 +366,7 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
     }
 
     @Override
-    public void onSizeChanged(int keyboardHeight) {
+    public void onSizeChanged(int height) {
 
         Rect localRect = new Rect();
         getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(localRect);
@@ -436,5 +436,12 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
             result = getResources().getDimensionPixelSize(resourceId);
         }
         return result;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        hideEmojiPopup();
     }
 }

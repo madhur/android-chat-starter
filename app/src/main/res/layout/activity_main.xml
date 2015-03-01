@@ -1,8 +1,8 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<in.co.madhur.chatbubblesdemo.SizeNotifierRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:id="@+id/chat_layout"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/background"
     tools:context=".MainActivity">
@@ -30,6 +30,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <ImageView android:src="@drawable/ic_msg_panel_smiles" android:layout_alignParentLeft="true" android:layout_alignParentStart="true" android:layout_marginLeft="8dp" android:layout_marginRight="8dp"
+                android:layout_width="wrap_content" android:id="@+id/emojiButton" android:layout_alignBottom="@+id/chat_edit_text1" android:layout_marginBottom="8dp"
+                android:layout_height="wrap_content" />
+
             <EditText
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -38,6 +42,8 @@
                 android:layout_height="wrap_content"
                 android:scrollHorizontally="false"
                 android:layout_toLeftOf="@+id/enter_chat1"
+                android:layout_toRightOf="@id/emojiButton"
+                android:layout_toEndOf="@id/emojiButton"
                 android:layout_toStartOf="@+id/enter_chat1"
                 android:hint="@string/type_your_message"
                 android:maxLines="4"
@@ -51,49 +57,19 @@
                 android:layout_alignParentEnd="true"
                 android:id="@+id/enter_chat1"
                 android:layout_width="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/chat_edit_text1"
                 android:paddingLeft="13dp"
+                android:paddingStart="13dp"
                 android:paddingRight="17dp"
+                android:paddingEnd="17dp"
                 android:src="@drawable/ic_chat_send" />
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
 
-            <EditText
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:id="@+id/chat_edit_text2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollHorizontally="false"
-                android:layout_toLeftOf="@+id/enter_chat2"
-                android:layout_toStartOf="@+dsfdsfid/enter_chat2"
-                android:hint="@string/type_your_message"
-                android:maxLines="4"
-                android:singleLine="false"
-                android:inputType="textCapSentences"
-
-                android:textSize="18sp"
-                android:paddingLeft="4dp" />
-
-            <ImageView
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:id="@+id/enter_chat2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_alignBottom="@id/chat_edit_text2"
-                android:paddingLeft="13dp"
-                android:paddingRight="17dp"
-                android:src="@drawable/ic_chat_send" />
-
-        </RelativeLayout>
 
     </LinearLayout>
 
-</RelativeLayout>
+</in.co.madhur.chatbubblesdemo.SizeNotifierRelativeLayout>

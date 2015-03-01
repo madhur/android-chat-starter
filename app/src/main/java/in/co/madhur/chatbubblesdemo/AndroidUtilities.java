@@ -3,7 +3,10 @@ package in.co.madhur.chatbubblesdemo;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.Rect;
+import android.os.Build;
 import android.view.Display;
+import android.view.View;
 import android.view.WindowManager;
 
 import java.io.File;
@@ -12,6 +15,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Field;
 import java.nio.channels.FileChannel;
 
 /**
@@ -99,6 +103,27 @@ public class AndroidUtilities {
         } catch (Exception e) {
         }
     }
+
+    public static int getViewInset(View view) {
+        if (view == null || Build.VERSION.SDK_INT < 21) {
+            return 0;
+        }
+        try {
+            Field mAttachInfoField = View.class.getDeclaredField("mAttachInfo");
+            mAttachInfoField.setAccessible(true);
+            Object mAttachInfo = mAttachInfoField.get(view);
+            if (mAttachInfo != null) {
+                Field mStableInsetsField = mAttachInfo.getClass().getDeclaredField("mStableInsets");
+                mStableInsetsField.setAccessible(true);
+                Rect insets = (Rect)mStableInsetsField.get(mAttachInfo);
+                return insets.bottom;
+            }
+        } catch (Exception e) {
+            // FileLog.e("tmessages", e);
+        }
+        return 0;
+    }
+
 
 
 }

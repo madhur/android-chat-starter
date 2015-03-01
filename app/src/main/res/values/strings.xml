@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Chat Bubbles Demo</string>
+    <string name="app_name">Chat Starter</string>
     <string name="type_your_message">Enter msg</string>
     <string name="NoRecent">No recent</string>
 

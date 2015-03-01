@@ -19,6 +19,8 @@ public class App extends Application {
 
         applicationHandler = new Handler(getInstance().getMainLooper());
 
+        NativeLoader.initNativeLibs(App.getInstance());
+
     }
 
     public static App getInstance()
