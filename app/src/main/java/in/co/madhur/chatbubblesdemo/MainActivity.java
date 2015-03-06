@@ -61,8 +61,6 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
                 {
                     sendMessage(editText.getText().toString(), UserType.OTHER);
                 }
-                else
-                    sendMessage(editText.getText().toString(), UserType.SELF);
 
                 chatEditText1.setText("");
 
@@ -81,8 +79,6 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
             {
                 sendMessage(chatEditText1.getText().toString(), UserType.OTHER);
             }
-//            else if(v==enterChatView2)
-//                sendMessage(chatEditText2.getText().toString(), UserType.SELF);
 
             chatEditText1.setText("");
 
@@ -127,9 +123,7 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         chatListView = (ListView) findViewById(R.id.chat_list_view);
 
         chatEditText1 = (EditText) findViewById(R.id.chat_edit_text1);
-       // chatEditText2 = (EditText) findViewById(R.id.chat_edit_text2);
         enterChatView1 = (ImageView) findViewById(R.id.enter_chat1);
-      //  enterChatView2 = (ImageView) findViewById(R.id.enter_chat2);
 
         // Hide the emoji on click of edit text
         chatEditText1.setOnClickListener(new View.OnClickListener() {
@@ -168,6 +162,8 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
 
     private void sendMessage(final String messageText, final UserType userType)
     {
+        if(messageText.trim().length()==0)
+            return;
 
         final ChatMessage message = new ChatMessage();
         message.setMessageStatus(Status.SENT);

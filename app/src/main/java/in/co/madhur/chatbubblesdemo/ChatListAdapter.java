@@ -110,6 +110,16 @@ public class ChatListAdapter extends BaseAdapter {
         return v;
     }
 
+    @Override
+    public int getViewTypeCount() {
+        return 2;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        ChatMessage message = chatMessages.get(position);
+        return message.getUserType().ordinal();
+    }
 
     private class ViewHolder1 {
         public TextView messageTextView;
