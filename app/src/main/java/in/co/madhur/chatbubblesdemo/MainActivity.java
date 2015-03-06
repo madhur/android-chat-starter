@@ -23,6 +23,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import in.co.madhur.chatbubblesdemo.model.ChatMessage;
+import in.co.madhur.chatbubblesdemo.model.Status;
+import in.co.madhur.chatbubblesdemo.model.UserType;
+import in.co.madhur.chatbubblesdemo.widgets.Emoji;
+import in.co.madhur.chatbubblesdemo.widgets.EmojiView;
+import in.co.madhur.chatbubblesdemo.widgets.SizeNotifierRelativeLayout;
+
 
 public class MainActivity extends ActionBarActivity implements SizeNotifierRelativeLayout.SizeNotifierRelativeLayoutDelegate, NotificationCenter.NotificationCenterDelegate {
 

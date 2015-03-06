@@ -1,6 +1,6 @@
 
 
-package in.co.madhur.chatbubblesdemo;
+package in.co.madhur.chatbubblesdemo.widgets;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import in.co.madhur.chatbubblesdemo.R;
 
 
 public class PagerSlidingTabStrip extends HorizontalScrollView {

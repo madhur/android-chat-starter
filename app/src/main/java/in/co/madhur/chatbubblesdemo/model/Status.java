@@ -1,4 +1,4 @@
-package in.co.madhur.chatbubblesdemo;
+package in.co.madhur.chatbubblesdemo.model;
 
 /**
  * Created by madhur on 17/01/15.

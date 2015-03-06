@@ -6,7 +6,8 @@
     android:paddingBottom="5dp"
     android:paddingTop="5dp">
 
-    <in.co.madhur.chatbubblesdemo.ChatLayout android:layout_marginLeft="20dp"
+    <in.co.madhur.chatbubblesdemo.widgets.ChatLayout
+        android:layout_marginLeft="20dp"
         android:layout_width="wrap_content" android:id="@+id/bubble" android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
         android:layout_height="wrap_content" android:background="@drawable/balloon_outgoing_normal">
 
@@ -53,5 +54,5 @@
 
 
 
-    </in.co.madhur.chatbubblesdemo.ChatLayout>
+    </in.co.madhur.chatbubblesdemo.widgets.ChatLayout>
 </RelativeLayout>

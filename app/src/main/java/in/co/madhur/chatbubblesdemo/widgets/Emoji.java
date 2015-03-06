@@ -1,5 +1,5 @@
 
-package in.co.madhur.chatbubblesdemo;
+package in.co.madhur.chatbubblesdemo.widgets;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,6 +22,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Locale;
+
+import in.co.madhur.chatbubblesdemo.AndroidUtilities;
+import in.co.madhur.chatbubblesdemo.App;
+import in.co.madhur.chatbubblesdemo.NotificationCenter;
 
 
 public class Emoji {
