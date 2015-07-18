@@ -1,6 +1,7 @@
 package in.co.madhur.chatbubblesdemo;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,20 +11,18 @@ import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import in.co.madhur.chatbubblesdemo.model.ChatMessage;
 import in.co.madhur.chatbubblesdemo.model.Status;
 import in.co.madhur.chatbubblesdemo.model.UserType;
 import in.co.madhur.chatbubblesdemo.widgets.Emoji;
 
-/**
- * Created by madhur on 17/01/15.
- */
 public class ChatListAdapter extends BaseAdapter {
 
     private ArrayList<ChatMessage> chatMessages;
     private Context context;
-    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("HH:mm");
+    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("h:mm a", Locale.US);
 
     public ChatListAdapter(ArrayList<ChatMessage> chatMessages, Context context) {
         this.chatMessages = chatMessages;
@@ -60,8 +59,8 @@ public class ChatListAdapter extends BaseAdapter {
                 holder1 = new ViewHolder1();
 
 
-                holder1.messageTextView = (TextView) v.findViewById(R.id.message_text);
-                holder1.timeTextView = (TextView) v.findViewById(R.id.time_text);
+                holder1.messageTextView = (TextView) v.findViewById(R.id.textview_message);
+                holder1.timeTextView = (TextView) v.findViewById(R.id.textview_time);
 
                 v.setTag(holder1);
             } else {
@@ -70,7 +69,9 @@ public class ChatListAdapter extends BaseAdapter {
 
             }
 
-            holder1.messageTextView.setText(Emoji.replaceEmoji(message.getMessageText(), holder1.messageTextView.getPaint().getFontMetricsInt(), AndroidUtilities.dp(16)));
+            holder1.messageTextView.setText(Html.fromHtml(Emoji.replaceEmoji(message.getMessageText(),
+                    holder1.messageTextView.getPaint().getFontMetricsInt(), AndroidUtilities.dp(16))
+                    + " &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"));
             holder1.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getMessageTime()));
 
         } else if (message.getUserType() == UserType.OTHER) {
@@ -81,8 +82,8 @@ public class ChatListAdapter extends BaseAdapter {
                 holder2 = new ViewHolder2();
 
 
-                holder2.messageTextView = (TextView) v.findViewById(R.id.message_text);
-                holder2.timeTextView = (TextView) v.findViewById(R.id.time_text);
+                holder2.messageTextView = (TextView) v.findViewById(R.id.textview_message);
+                holder2.timeTextView = (TextView) v.findViewById(R.id.textview_time);
                 holder2.messageStatus = (ImageView) v.findViewById(R.id.user_reply_status);
                 v.setTag(holder2);
 
@@ -92,14 +93,17 @@ public class ChatListAdapter extends BaseAdapter {
 
             }
 
-            holder2.messageTextView.setText(Emoji.replaceEmoji(message.getMessageText(), holder2.messageTextView.getPaint().getFontMetricsInt(), AndroidUtilities.dp(16) ));
+            holder2.messageTextView.setText(Html.fromHtml(Emoji.replaceEmoji(message.getMessageText(),
+                    holder2.messageTextView.getPaint().getFontMetricsInt(), AndroidUtilities.dp(16))
+                    + " &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;" +
+                    "&#160;&#160;&#160;&#160;&#160;&#160;&#160;"));
             //holder2.messageTextView.setText(message.getMessageText());
             holder2.timeTextView.setText(SIMPLE_DATE_FORMAT.format(message.getMessageTime()));
 
             if (message.getMessageStatus() == Status.DELIVERED) {
-                holder2.messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_double_tick));
+                holder2.messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.message_got_receipt_from_target));
             } else if (message.getMessageStatus() == Status.SENT) {
-                holder2.messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.ic_single_tick));
+                holder2.messageStatus.setImageDrawable(context.getResources().getDrawable(R.drawable.message_got_receipt_from_server));
 
             }
 
