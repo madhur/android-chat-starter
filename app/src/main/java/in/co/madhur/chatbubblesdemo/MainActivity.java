@@ -31,14 +31,14 @@ import in.co.madhur.chatbubblesdemo.widgets.EmojiView;
 import in.co.madhur.chatbubblesdemo.widgets.SizeNotifierRelativeLayout;
 
 
-public class MainActivity extends ActionBarActivity implements SizeNotifierRelativeLayout.SizeNotifierRelativeLayoutDelegate, NotificationCenter.NotificationCenterDelegate {
+public class MainActivity extends ActionBarActivity implements NotificationCenter.NotificationCenterDelegate {
 
     private ListView chatListView;
     private EditText chatEditText1;
     private ArrayList<ChatMessage> chatMessages;
     private ImageView enterChatView1, emojiButton;
-    private ChatListAdapter listAdapter;
     private EmojiView emojiView;
+    private ChatListAdapter listAdapter;
     private SizeNotifierRelativeLayout sizeNotifierRelativeLayout;
     private boolean showingEmoji;
     private int keyboardHeight;
@@ -95,7 +95,7 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
             if (chatEditText1.getText().toString().equals("")) {
 
             } else {
-                enterChatView1.setImageResource(R.drawable.ic_chat_send);
+                enterChatView1.setImageResource(R.drawable.input_send);
 
             }
         }
@@ -103,9 +103,9 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         @Override
         public void afterTextChanged(Editable editable) {
             if(editable.length()==0){
-                enterChatView1.setImageResource(R.drawable.ic_chat_send);
+                enterChatView1.setImageResource(R.drawable.input_send);
             }else{
-                enterChatView1.setImageResource(R.drawable.ic_chat_send_active);
+                enterChatView1.setImageResource(R.drawable.input_send);
             }
         }
     };
@@ -117,6 +117,8 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         setContentView(R.layout.activity_main);
 
         AndroidUtilities.statusBarHeight = getStatusBarHeight();
+
+        getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.background));
 
         chatMessages = new ArrayList<>();
 
@@ -154,8 +156,8 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
 
         chatEditText1.addTextChangedListener(watcher1);
 
-        sizeNotifierRelativeLayout = (SizeNotifierRelativeLayout) findViewById(R.id.chat_layout);
-        sizeNotifierRelativeLayout.delegate = this;
+        //sizeNotifierRelativeLayout = (SizeNotifierRelativeLayout) findViewById(R.id.chat_layout);
+        //sizeNotifierRelativeLayout.delegate = this;
 
         NotificationCenter.getInstance().addObserver(this, NotificationCenter.emojiDidLoaded);
     }
@@ -179,14 +181,14 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
 
         final ScheduledExecutorService exec = Executors.newScheduledThreadPool(1);
 
-        exec.schedule(new Runnable(){
+        exec.schedule(new Runnable() {
             @Override
-            public void run(){
-               message.setMessageStatus(Status.DELIVERED);
+            public void run() {
+                message.setMessageStatus(Status.DELIVERED);
 
                 final ChatMessage message = new ChatMessage();
                 message.setMessageStatus(Status.SENT);
-                message.setMessageText(messageText);
+                message.setMessageText(messageText); // 10 spaces;
                 message.setUserType(UserType.SELF);
                 message.setMessageTime(new Date().getTime());
                 chatMessages.add(message);
@@ -208,6 +210,58 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         return this;
     }
 
+    //@Override
+    public void onSizeChanged(int height) {
+
+        Rect localRect = new Rect();
+        getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(localRect);
+
+        WindowManager wm = (WindowManager) App.getInstance().getSystemService(Activity.WINDOW_SERVICE);
+        if (wm == null || wm.getDefaultDisplay() == null) {
+            return;
+        }
+
+
+        if (height > AndroidUtilities.dp(50) && keyboardVisible) {
+            keyboardHeight = height;
+            App.getInstance().getSharedPreferences("emoji", 0).edit().putInt("kbd_height", keyboardHeight).commit();
+        }
+
+
+        if (showingEmoji) {
+            int newHeight = 0;
+
+            newHeight = keyboardHeight;
+
+            if (windowLayoutParams.width != AndroidUtilities.displaySize.x || windowLayoutParams.height != newHeight) {
+                windowLayoutParams.width = AndroidUtilities.displaySize.x;
+                windowLayoutParams.height = newHeight;
+
+                wm.updateViewLayout(emojiView, windowLayoutParams);
+                if (!keyboardVisible) {
+                    sizeNotifierRelativeLayout.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (sizeNotifierRelativeLayout != null) {
+                                sizeNotifierRelativeLayout.setPadding(0, 0, 0, windowLayoutParams.height);
+                                sizeNotifierRelativeLayout.requestLayout();
+                            }
+                        }
+                    });
+                }
+            }
+        }
+
+
+        boolean oldValue = keyboardVisible;
+        keyboardVisible = height > 0;
+        if (keyboardVisible && sizeNotifierRelativeLayout.getPaddingBottom() > 0) {
+            showEmojiPopup(false);
+        } else if (!keyboardVisible && keyboardVisible != oldValue && showingEmoji) {
+            showEmojiPopup(false);
+        }
+
+    }
 
     /**
      * Show or hide the emoji popup
@@ -309,6 +363,32 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        NotificationCenter.getInstance().removeObserver(this, NotificationCenter.emojiDidLoaded);
+    }
+
+    /**
+     * Get the system status bar height
+     * @return
+     */
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        hideEmojiPopup();
+    }
 
     /**
      * Remove emoji window
@@ -347,8 +427,6 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         return showingEmoji;
     }
 
-
-
     /**
      * Updates emoji views when they are complete loading
      *
@@ -368,83 +446,4 @@ public class MainActivity extends ActionBarActivity implements SizeNotifierRelat
         }
     }
 
-    @Override
-    public void onSizeChanged(int height) {
-
-        Rect localRect = new Rect();
-        getActivity().getWindow().getDecorView().getWindowVisibleDisplayFrame(localRect);
-
-        WindowManager wm = (WindowManager) App.getInstance().getSystemService(Activity.WINDOW_SERVICE);
-        if (wm == null || wm.getDefaultDisplay() == null) {
-            return;
-        }
-
-
-        if (height > AndroidUtilities.dp(50) && keyboardVisible) {
-            keyboardHeight = height;
-            App.getInstance().getSharedPreferences("emoji", 0).edit().putInt("kbd_height", keyboardHeight).commit();
-        }
-
-
-        if (showingEmoji) {
-            int newHeight = 0;
-
-            newHeight = keyboardHeight;
-
-            if (windowLayoutParams.width != AndroidUtilities.displaySize.x || windowLayoutParams.height != newHeight) {
-                windowLayoutParams.width = AndroidUtilities.displaySize.x;
-                windowLayoutParams.height = newHeight;
-
-                wm.updateViewLayout(emojiView, windowLayoutParams);
-                if (!keyboardVisible) {
-                    sizeNotifierRelativeLayout.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (sizeNotifierRelativeLayout != null) {
-                                sizeNotifierRelativeLayout.setPadding(0, 0, 0, windowLayoutParams.height);
-                                sizeNotifierRelativeLayout.requestLayout();
-                            }
-                        }
-                    });
-                }
-            }
-        }
-
-
-        boolean oldValue = keyboardVisible;
-        keyboardVisible = height > 0;
-        if (keyboardVisible && sizeNotifierRelativeLayout.getPaddingBottom() > 0) {
-            showEmojiPopup(false);
-        } else if (!keyboardVisible && keyboardVisible != oldValue && showingEmoji) {
-            showEmojiPopup(false);
-        }
-
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        NotificationCenter.getInstance().removeObserver(this, NotificationCenter.emojiDidLoaded);
-    }
-
-    /**
-     * Get the system status bar height
-     * @return
-     */
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        hideEmojiPopup();
-    }
 }
