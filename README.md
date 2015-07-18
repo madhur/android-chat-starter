@@ -13,5 +13,5 @@ A sample Android App which can be used as a starter application for a chat appli
 
 ###Screenshots
 
-<img src="https://github.com/madhur/android-chat-starter/blob/gh-pages/chat1.png" />
-<img src="https://github.com/madhur/android-chat-starter/blob/gh-pages/chat2.png" />
+<img src="https://github.com/DeromirNeves/whatsapp-android/blob/gh-pages/chat1.png"/>
+<img src="https://github.com/DeromirNeves/whatsapp-android/blob/gh-pages/chat2.png"/>
