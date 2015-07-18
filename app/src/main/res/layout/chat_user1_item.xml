@@ -1,62 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
-
-    android:paddingTop="5dp">
-
-    <RelativeLayout
-        android:layout_width="wrap_content"  android:background="@drawable/balloon_incoming_normal"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/chat_company_reply_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/chat_company_reply_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="8dp"
-                android:paddingTop="5dp"
-                android:textStyle="bold"
-                android:textColor="@color/orange"
-                android:text="User1"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/message_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                style="@style/chat_text_message_style"
-                android:paddingLeft="20dp"
-
-                android:autoLink="web"
-                android:maxWidth="280dp"
-                android:text="Rahul Agrawal is a good boy but he does not know what he wants." />
-
-        </LinearLayout>
+    <FrameLayout
+        android:id="@+id/incoming_layout_bubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="60dp"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/balloon_incoming_normal">
 
         <TextView
-            android:id="@+id/time_text"
+            android:id="@+id/textview_time"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_alignBottom="@id/chat_company_reply_text"
-            android:layout_marginLeft="10dp"
+            android:paddingRight="5dp"
+            android:text="11:15 PM"
             style="@style/chat_timings"
-            android:paddingRight="10dp"
-            android:textColor="@color/gray"
-            android:paddingBottom="5dp"
-            android:layout_toRightOf="@id/chat_company_reply_text"
-            android:text="17:10" />
+            android:layout_gravity="bottom|right"/>
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/textview_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:autoLink="web"
+            android:text="Rahul Agrawal is a good boy but he does not know what he wants."
+            style="@style/chat_text_message_style"/>
+
+    </FrameLayout>
 
 </RelativeLayout>
