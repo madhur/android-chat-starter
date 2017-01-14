@@ -1,58 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:paddingBottom="5dp"
-    android:paddingTop="5dp">
+    android:layout_height="wrap_content">
 
-    <in.co.madhur.chatbubblesdemo.widgets.ChatLayout
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content" android:id="@+id/bubble" android:layout_alignParentRight="true" android:layout_alignParentEnd="true"
-        android:layout_height="wrap_content" android:background="@drawable/balloon_outgoing_normal">
+    <FrameLayout
+        android:id="@+id/outgoing_layout_bubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="8dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/balloon_outgoing_normal">
 
-        <ImageView
-            android:id="@+id/user_reply_status"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/message_text"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            android:layout_gravity="bottom|right"
+            android:paddingRight="5dp">
 
+            <TextView
+                android:id="@+id/textview_time"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="4dp"
+                android:text="11:15 PM"
+                style="@style/chat_timings"/>
 
-            android:src="@drawable/ic_single_tick"
-            android:visibility="visible" />
+            <ImageView
+                android:id="@+id/user_reply_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:paddingBottom="3dp"
+                android:src="@drawable/message_got_receipt_from_server"/>
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/time_text"
-            style="@style/chat_timings"
+            android:id="@+id/textview_message"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_alignBottom="@id/message_text"
-
-            android:textColor="@color/gray"
-            android:paddingBottom="5dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginEnd="2dp"
-            android:layout_toLeftOf="@id/user_reply_status"
-            android:layout_toStartOf="@id/user_reply_status"
-            android:text="17:10" />
-
-        <TextView
-            android:id="@id/message_text"
-            style="@style/chat_text_message_style"
-            android:layout_height="wrap_content"
-
-            android:layout_width="wrap_content"
-            android:layout_toLeftOf="@id/time_text"
-
+            android:paddingRight="6dp"
             android:autoLink="web"
-            android:text="Rahul Agrawal is a good boy but he does not know what he wants." />
+            android:text="Rahul Agrawal is a good boy but he does not know what he wants."
+            style="@style/chat_text_message_style"/>
 
+    </FrameLayout>
 
-
-    </in.co.madhur.chatbubblesdemo.widgets.ChatLayout>
 </RelativeLayout>
