@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/android-chat-bubbles.iml" filepath="$PROJECT_DIR$/android-chat-bubbles.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/whatsapp-android.iml" filepath="$PROJECT_DIR$/whatsapp-android.iml" />
     </modules>
   </component>
 </project>
-
